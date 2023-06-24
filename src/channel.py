@@ -19,9 +19,9 @@ class Channel:
         self.title = data['snippet']['title']
         self.description = data['snippet']['description']
         self.url = f"https://www.youtube.com/channel/{self.channel_id}"
-        self.subscriber_count = data['statistics']['subscriberCount']
-        self.video_count = data['statistics']['videoCount']
-        self.view_count = data['statistics']['viewCount']
+        self.subscriber_count = int(data['statistics']['subscriberCount'])
+        self.video_count = int(data['statistics']['videoCount'])
+        self.view_count = int(data['statistics']['viewCount'])
 
     def get_channel_data(self):
         params = {
@@ -32,6 +32,57 @@ class Channel:
         response = requests.get(self.BASE_URL, params=params)
         data = response.json()
         return data.get('items')[0] if data.get('items') else None
+
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_count + other.subscriber_count
+        else:
+            raise TypeError("Can only add two Channel instances")
+
+    def __sub__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_count - other.subscriber_count
+        else:
+            raise TypeError("Can only subtract two Channel instances")
+
+    def __eq__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_count == other.subscriber_count
+        else:
+            return False
+
+    def __ne__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_count != other.subscriber_count
+        else:
+            return True
+
+    def __lt__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_count < other.subscriber_count
+        else:
+            return False
+
+    def __le__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_count <= other.subscriber_count
+        else:
+            return False
+
+    def __gt__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_count > other.subscriber_count
+        else:
+            return False
+
+    def __ge__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_count >= other.subscriber_count
+        else:
+            return False
 
     @classmethod
     def get_service(cls):
