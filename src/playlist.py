@@ -4,7 +4,7 @@ import isodate
 import datetime
 
 
-# Ваш API ключ
+# API ключ
 YOUTUBE_API_KEY = "AIzaSyA38Js6ZuOi3612bTl_vTmcqxO_7i0BQEw"
 youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
 
