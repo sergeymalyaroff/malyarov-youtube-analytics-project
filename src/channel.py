@@ -5,6 +5,7 @@ import os
 
 class Channel:
     BASE_URL = "https://www.googleapis.com/youtube/v3/channels"
+    YT_API_KEY = "AIzaSyA38Js6ZuOi3612bTl_vTmcqxO_7i0BQEw"
 
     def __init__(self, channel_id: str) -> None:
         self.channel_id = channel_id
